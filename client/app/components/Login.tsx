@@ -55,6 +55,7 @@ const Login = ({
       setLoading(false)
       setShowLogin(false);
     } catch (error) {
+      setLoading(false)
       seterrorMsg("Invalid Credentials..");
       console.error("Error logging in:", error);
     }

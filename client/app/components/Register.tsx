@@ -60,6 +60,7 @@ const Register = ({
       login(res.data.token, user);
       setLoading(false)
     } catch (error) {
+      setLoading(false)
       console.error("Error updating profile:", error);
     }
     setShowRegister(false);
