@@ -51,7 +51,6 @@ const Login = ({
 
       login(res.data.token, user);
       setShowLogin(false);
-      redirect("/dashboard");
     } catch (error) {
       seterrorMsg("Invalid Credentials..");
       console.error("Error logging in:", error);

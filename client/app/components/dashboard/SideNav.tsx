@@ -54,21 +54,27 @@ const SideNav = ({
         `/tasks`,
         { title: "", body: "" },
         {
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${window.localStorage.getItem(
+              process.env.AUTH_PREFIX!
+            )}`,
+          },
         }
       );
       toast("New task created");
       newTask.id = res.data.task.insertId;
     } catch (error) {
       console.log(error);
+    } finally {
+      setTaskDatas((prevTasks) => {
+        const updatedTasks = prevTasks ? [...prevTasks, newTask] : [newTask];
+        setTask(newTask);
+        return updatedTasks;
+      });
     }
 
     // Update taskDatas with the new task
-    setTaskDatas((prevTasks) => {
-      const updatedTasks = prevTasks ? [...prevTasks, newTask] : [newTask];
-      setTask(newTask);
-      return updatedTasks;
-    });
   };
 
   // Function to handle task deletion
@@ -87,7 +93,13 @@ const SideNav = ({
       return updatedTasks;
     });
     try {
-      await axios.delete(`/tasks/${taskId}`);
+      await axios.delete(`/tasks/${taskId}`,{
+        headers:{
+          Authorization: `Bearer ${window.localStorage.getItem(
+            process.env.AUTH_PREFIX!
+          )}`,
+        }
+      });
       toast("Task Deleted");
     } catch (error) {
       console.log(error);

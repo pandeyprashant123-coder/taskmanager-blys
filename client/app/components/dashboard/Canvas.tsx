@@ -18,14 +18,14 @@ const Canvas = ({
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
       if (isEdited) {
         e.preventDefault();
-        e.returnValue = '';
+        e.returnValue = "";
       }
     };
 
-    window.addEventListener('beforeunload', handleBeforeUnload);
+    window.addEventListener("beforeunload", handleBeforeUnload);
 
     return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
+      window.removeEventListener("beforeunload", handleBeforeUnload);
     };
   }, [isEdited]);
 
@@ -66,7 +66,12 @@ const Canvas = ({
     };
     try {
       await axios.patch(`tasks/${task.id}`, newTask, {
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${window.localStorage.getItem(
+            process.env.AUTH_PREFIX!
+          )}`,
+        },
       });
       toast("Task Updated");
       setIsEdited(false);
@@ -78,7 +83,7 @@ const Canvas = ({
 
   return (
     <div className="flex flex-col gap-5 p-6">
-      <ToastContainer/>
+      <ToastContainer />
       <button
         className="fixed bottom-20 right-20 flex items-center py-3 px-6 rounded-xl shadow-2xl gap-2 hover:bg-green-50 bg-white text-green-500 hover:cursor-pointer"
         onClick={handleSave}

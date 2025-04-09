@@ -57,7 +57,6 @@ const Register = ({
       };
 
       login(res.data.token, user);
-      router.push("/dashboard");
     } catch (error) {
       console.error("Error updating profile:", error);
     }

@@ -29,15 +29,23 @@ const Layout = ({
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const res = await axios.get("/tasks");
-        setTaskDatas(res.data.tasks);
-      } catch (error) {
-        console.error("Error fetching data:", error);
+      if (isAuthenticated) {
+        try {
+          const res = await axios.get("/tasks", {
+            headers: {
+              Authorization: `Bearer ${window.localStorage.getItem(
+                process.env.AUTH_PREFIX!
+              )}`,
+            },
+          });
+          setTaskDatas(res.data.tasks);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
       }
     };
     fetchData();
-  }, []);
+  }, [isAuthenticated]);
 
   useEffect(() => {
     if (task.id && taskDatas?.length) {
@@ -49,6 +57,8 @@ const Layout = ({
 
   useEffect(() => {
     if (isAuthenticated === false) {
+      setTaskDatas([]);
+      setTask({ id: 0, title: "", body: "" });
       router.push("/");
     }
   }, [isAuthenticated, router]);
