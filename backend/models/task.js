@@ -1,8 +1,10 @@
 import db from "../config/db.js";
+import { taskSchema } from "./schema.js";
 
 export class Task {
   constructor() {
     this.table = "tasks";
+    this.init();
   }
 
   async createTask(task) {
@@ -31,5 +33,8 @@ export class Task {
     const query = `DELETE FROM ${this.table} WHERE id = ?`;
     const [result] = await db.execute(query, [task_id]);
     return result;
+  }
+  async init() {
+    await db.execute(taskSchema);
   }
 }

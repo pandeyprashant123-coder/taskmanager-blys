@@ -1,8 +1,10 @@
 import db from "../config/db.js";
+import { userSchema } from "./schema.js";
 
 export class User {
   constructor() {
     this.table = "users";
+    this.init()
   }
 
   async createUser(user) {
@@ -23,5 +25,9 @@ export class User {
     const query = `SELECT * FROM ${this.table} WHERE email = ?`;
     const [rows] = await db.execute(query, [email]);
     return rows[0];
+  }
+
+  async init(){
+    await db.execute(userSchema)
   }
 }
