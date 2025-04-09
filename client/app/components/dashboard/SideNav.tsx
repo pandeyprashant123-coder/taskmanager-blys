@@ -57,8 +57,8 @@ const SideNav = ({
           headers: { "Content-Type": "application/json" },
         }
       );
-      newTask.id = res.data.task.insertId;
       toast("New task created");
+      newTask.id = res.data.task.insertId;
     } catch (error) {
       console.log(error);
     }
