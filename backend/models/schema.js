@@ -21,6 +21,6 @@ CREATE TABLE IF NOT EXISTS users (
     created_at DATE NOT NULL,
     user_id VARCHAR(45) NOT NULL,
     PRIMARY KEY (id),
-    UNIQUE (id),
+    UNIQUE (id)
 );
 `;
