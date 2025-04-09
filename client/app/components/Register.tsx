@@ -68,9 +68,9 @@ const Register = ({
 
   return (
     <div className="w-screen h-screen fixed top-0 left-0 flex items-center justify-center bg-[#07070767] z-[1000]">
-      <div className="w-2/5 h-4/5  shadow rounded-lg bg-white p-10">
+      <div className="lg:w-2/5 lg:h-4/5 w-96  shadow rounded-lg bg-white lg:p-12 py-5">
         <h1
-          className="float-end -translate-y-9 translate-x-4 text-xl font-semibold cursor-pointer"
+          className="float-end lg:-translate-y-9 lg:translate-x-4 -translate-y-5 -translate-x-4 text-xl font-semibold cursor-pointer"
           onClick={onClose}
         >
           x

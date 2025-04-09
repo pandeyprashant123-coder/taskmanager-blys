@@ -10,7 +10,7 @@ const Navbar = () => {
   const { isAuthenticated,logout } = useAuth();
   return (
     <div>
-      <div className="py-5 px-20 flex justify-between">
+      <div className="py-5 px-5 lg:px-20 flex justify-between">
         {showRegister && (
           <Register
             setShowRegister={setShowRegister}
@@ -32,15 +32,15 @@ const Navbar = () => {
           Sign Out
         </button>
         ) : (
-          <div className="flex">
+          <div className="flex gap-3">
             <button
-              className="flex items-center py-3 px-8  rounded-xl gap-2  font-medium hover:cursor-pointer"
+              className="flex items-center lg:py-3 lg:px-8 px-1 py-2  rounded-xl gap-2  font-medium hover:cursor-pointer"
               onClick={() => setShowLogin(true)}
             >
               <h1>Sign In</h1>
             </button>
             <button
-              className="flex items-center py-3 px-6 rounded-xl shadow-2xl gap-2 hover:bg-green-50 bg-white text-green-500 text-sm hover:cursor-pointer"
+              className="flex items-center lg:py-3 lg:px-6 px-1 py-2 rounded-xl shadow-2xl gap-2 hover:bg-green-50 bg-white text-green-500 text-sm hover:cursor-pointer"
               onClick={() => setShowRegister(true)}
             >
               <h1>Sign Up</h1>

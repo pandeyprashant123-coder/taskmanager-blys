@@ -133,8 +133,8 @@ const SideNav = ({
 
   return (
     <div
-      className={`h-screen sticky top-0 transition-all duration-300 ease-in-out ${
-        hideSideNav ? "w-16" : "w-1/5"
+      className={`h-screen fixed z-50 lg:sticky top-0 transition-all duration-300 ease-in-out ${
+        hideSideNav ? "w-16" : "lg:w-1/5"
       }`}
     >
       <ToastContainer />
@@ -171,10 +171,9 @@ const SideNav = ({
           {!hideSideNav && <h1>Create New Task</h1>}{" "}
           <FaCirclePlus className="text-3xl text-green-600" />
         </button>
-        {!hideSideNav && (
           <ul className="p-4 flex flex-col gap-3">
             {taskDatas &&
-              taskDatas.map((taskItem) => (
+              taskDatas.map((taskItem,index) => (
                 <li key={taskItem.id}>
                   <div
                     className={`flex justify-between hover:bg-gray-200 items-center py-1 px-3 rounded-2xl cursor-pointer ${
@@ -183,7 +182,7 @@ const SideNav = ({
                     onClick={() => handleTaskClick(taskItem)}
                   >
                     {/*#1: The doule click functionality is not working here */}
-                    <input
+                    {!hideSideNav?<input
                       type="text"
                       value={taskItem.title}
                       placeholder="Add title.."
@@ -205,7 +204,7 @@ const SideNav = ({
                           [taskItem.id]: false,
                         }));
                       }}
-                    />
+                    />:<h1 className="font-bold text-xl">{index}</h1>}
 
                     <MdOutlineDeleteOutline
                       className="hover:text-red-400 text-xl"
@@ -219,7 +218,7 @@ const SideNav = ({
                 </li>
               ))}
           </ul>
-        )}
+      
       </div>
     </div>
   );

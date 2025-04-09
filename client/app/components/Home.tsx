@@ -8,7 +8,7 @@ const HomePage = () => {
   const [showRegister, setShowRegister] = useState<boolean>(false);
   const { isAuthenticated } = useAuth();
   return (
-    <div className="flex items-center justify-center flex-col h-full py-32 gap-7">
+    <div className="flex items-center justify-center flex-col h-full py-32 px-10 text-center gap-7">
       {showRegister && (
         <Register
           setShowRegister={setShowRegister}

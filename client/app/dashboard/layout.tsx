@@ -28,6 +28,21 @@ const Layout = ({
   const router = useRouter();
 
   useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        sethideSideNav(true);
+      } else {
+        sethideSideNav(false);
+      }
+    };
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
     const fetchData = async () => {
       if (isAuthenticated) {
         try {
@@ -77,7 +92,7 @@ const Layout = ({
         taskDatas={taskDatas}
         setTaskDatas={setTaskDatas}
       />
-      <div className={`relative p-20 ${hideSideNav ? "w-full" : "w-4/5"}`}>
+      <div className={`relative py-10 pl-20 lg:px-20 ${hideSideNav ? "w-full" : "w-4/5"}`}>
         {children}
         <Canvas task={task} setTask={setTask} taskDatas={taskDatas} />
       </div>
