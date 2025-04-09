@@ -2,12 +2,11 @@ export const taskSchema = `
 CREATE TABLE IF NOT EXISTS tasks (
     id INT NOT NULL AUTO_INCREMENT,
     title VARCHAR(45) NOT NULL,
-    body VARCHAR(45) NOT NULL,
+    body TEXT NOT NULL,
     created_at DATE NOT NULL,
-    user_id VARCHAR(45) DEFAULT NULL,
+    user_id VARCHAR(45) NOT NULL,
     PRIMARY KEY (id),
-    UNIQUE (id),
-    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    UNIQUE (id)
 );
 `;
 
