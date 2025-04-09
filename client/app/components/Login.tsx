@@ -24,6 +24,7 @@ const Login = ({
     email: "",
   });
   const [errorMsg, seterrorMsg] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const router = useRouter();
 
@@ -38,6 +39,7 @@ const Login = ({
   };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true)
     try {
       const res = await axios.post(`login`, formData, {
         headers: { "Content-Type": "application/json" },
@@ -50,6 +52,7 @@ const Login = ({
       console.log(res.data);
 
       login(res.data.token, user);
+      setLoading(false)
       setShowLogin(false);
     } catch (error) {
       seterrorMsg("Invalid Credentials..");
@@ -103,7 +106,7 @@ const Login = ({
                 type="submit"
                 className="flex items-center py-3 px-6 rounded-xl shadow-2xl gap-2 hover:bg-orange-500 bg-orange-400 text-white text-sm hover:cursor-pointer"
               >
-                Submit
+                {loading?"Loading...":"Submit"}
               </button>
             </div>
             <h1 className="text-red-300 text-center">{errorMsg}</h1>

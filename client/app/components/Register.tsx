@@ -31,9 +31,9 @@ const Register = ({
     confirm_password: "",
     email: "",
   });
+  const [loading, setLoading] = useState(false)
 
   const { login } = useAuth();
-  const router = useRouter();
 
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,6 +46,7 @@ const Register = ({
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true)
     try {
       const res = await axios.post(`register`, formData, {
         headers: { "Content-Type": "application/json" },
@@ -57,6 +58,7 @@ const Register = ({
       };
 
       login(res.data.token, user);
+      setLoading(false)
     } catch (error) {
       console.error("Error updating profile:", error);
     }
@@ -151,7 +153,7 @@ const Register = ({
                 type="submit"
                 className="flex items-center py-3 px-6 rounded-xl shadow-2xl gap-2 hover:bg-orange-500 bg-orange-400 text-white text-sm hover:cursor-pointer"
               >
-                Done
+                {loading?"Loading...":"Submit"}
               </button>
             </div>
           </form>
