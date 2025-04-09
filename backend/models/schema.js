@@ -6,7 +6,8 @@ CREATE TABLE IF NOT EXISTS tasks (
     created_at DATE NOT NULL,
     user_id VARCHAR(45) DEFAULT NULL,
     PRIMARY KEY (id),
-    UNIQUE (id)
+    UNIQUE (id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 `;
 
@@ -21,6 +22,5 @@ CREATE TABLE IF NOT EXISTS users (
     user_id VARCHAR(45) NOT NULL,
     PRIMARY KEY (id),
     UNIQUE (id),
-    FOREIGN KEY (user_id) REFERENCES tasks(user_id)
 );
 `;
