@@ -37,9 +37,13 @@ const HomePage = () => {
             Get Started
           </button>
         )}
-        <button className="flex items-center py-3 px-6 rounded-xl shadow-2xl gap-2 hover:bg-green-50 bg-white text-green-500 text-sm hover:cursor-pointer">
+        <a
+          target="_blank"
+          href="https://www.youtube.com/watch?v=i4nO9rEUU5M"
+          className="flex items-center py-3 px-6 rounded-xl shadow-2xl gap-2 hover:bg-green-50 bg-white text-green-500 text-sm hover:cursor-pointer"
+        >
           Discover In Video
-        </button>
+        </a>
       </div>
     </div>
   );
