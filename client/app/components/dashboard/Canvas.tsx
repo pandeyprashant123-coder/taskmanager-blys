@@ -85,7 +85,7 @@ const Canvas = ({
     <div className="flex flex-col gap-5 lg:p-6">
       <ToastContainer />
       <button
-        className="fixed bottom-20 right-20 flex items-center py-3 lg:px-6 rounded-xl shadow-2xl gap-2 hover:bg-green-50 bg-white text-green-500 hover:cursor-pointer"
+        className="fixed bottom-20 right-20 flex items-center py-3 px-6 rounded-xl shadow-2xl gap-2 hover:bg-green-50 bg-white text-green-500 hover:cursor-pointer"
         onClick={handleSave}
       >
         Save
