@@ -1,6 +1,6 @@
 # taskmanager-blys — Next.js + Node.js + SQL
 
-A full-stack Task Manager built using **Next.js** for the frontend and **Node.js** for the backend, with **SQL** as the database. This project implements a clean architecture, secure authentication, and a persistent data layer.
+A full-stack **Task Manager** built using **Next.js** for the frontend and **Node.js** for the backend, with **SQL** as the database. This project implements a clean architecture, secure authentication, and a persistent data layer.
 
 ## 🧑‍💻 Technologies Used
 
