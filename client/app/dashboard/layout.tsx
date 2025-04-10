@@ -10,6 +10,7 @@ export interface TaskData {
   id: number;
   title: string;
   body: string;
+  created_at:String
 }
 
 const Layout = ({
@@ -22,6 +23,7 @@ const Layout = ({
     id: 0,
     title: "",
     body: "",
+    created_at:""
   });
   const [taskDatas, setTaskDatas] = useState<TaskData[]>([]);
   const { isAuthenticated } = useAuth();
@@ -54,6 +56,7 @@ const Layout = ({
             },
           });
           setTaskDatas(res.data.tasks);
+          console.log(res.data);
         } catch (error) {
           console.error("Error fetching data:", error);
         }
@@ -69,11 +72,11 @@ const Layout = ({
       );
     }
   }, [task]);
-
+console.log(taskDatas)
   useEffect(() => {
     if (isAuthenticated === false) {
       setTaskDatas([]);
-      setTask({ id: 0, title: "", body: "" });
+      setTask({ id: 0, title: "", body: "",created_at:"" });
       router.push("/");
     }
   }, [isAuthenticated, router]);
@@ -92,7 +95,11 @@ const Layout = ({
         taskDatas={taskDatas}
         setTaskDatas={setTaskDatas}
       />
-      <div className={`relative py-10 pl-20 lg:px-20 ${hideSideNav ? "w-full" : "w-4/5"}`}>
+      <div
+        className={`relative py-10 pl-20 lg:px-20 ${
+          hideSideNav ? "w-full" : "w-4/5"
+        }`}
+      >
         {children}
         <Canvas task={task} setTask={setTask} taskDatas={taskDatas} />
       </div>

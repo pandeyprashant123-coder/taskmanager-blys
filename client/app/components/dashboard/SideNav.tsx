@@ -48,6 +48,7 @@ const SideNav = ({
       id: 0,
       title: "",
       body: "",
+      created_at: "",
     };
     try {
       const res = await axios.post(
@@ -87,18 +88,18 @@ const SideNav = ({
         if (updatedTasks.length > 0) {
           setTask(updatedTasks[0]);
         } else {
-          setTask({ id: 0, title: "", body: "" });
+          setTask({ id: 0, title: "", body: "", created_at: "" });
         }
       }
       return updatedTasks;
     });
     try {
-      await axios.delete(`/tasks/${taskId}`,{
-        headers:{
+      await axios.delete(`/tasks/${taskId}`, {
+        headers: {
           Authorization: `Bearer ${window.localStorage.getItem(
             process.env.AUTH_PREFIX!
           )}`,
-        }
+        },
       });
       toast("Task Deleted");
     } catch (error) {
@@ -129,6 +130,48 @@ const SideNav = ({
   const handleLogout = () => {
     logout();
     setTaskDatas((prev) => []);
+  };
+
+  const getDateDifference = (dateStr: string) => {
+    const inputDate = new Date(dateStr);
+  const now = new Date();
+
+  const diffMs = now.getTime() - inputDate.getTime();
+  const diffMinutes = Math.floor(diffMs / (1000 * 60));
+  const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+  const years = now.getFullYear() - inputDate.getFullYear() -
+    (now.getMonth() < inputDate.getMonth() ||
+    (now.getMonth() === inputDate.getMonth() && now.getDate() < inputDate.getDate())
+      ? 1
+      : 0);
+
+  if (years >= 1) {
+    return `${years} year${years !== 1 ? 's' : ''}`;
+  }
+
+  const months = (now.getFullYear() - inputDate.getFullYear()) * 12 +
+    (now.getMonth() - inputDate.getMonth()) -
+    (now.getDate() < inputDate.getDate() ? 1 : 0);
+
+  if (months >= 1) {
+    return `${months} month${months !== 1 ? 's' : ''}`;
+  }
+
+  if (diffDays >= 1) {
+    return `${diffDays} day${diffDays !== 1 ? 's' : ''}`;
+  }
+
+  if (diffHours >= 1) {
+    return `${diffHours} hour${diffHours !== 1 ? 's' : ''}`;
+  }
+
+  if (diffMinutes >= 1) {
+    return `${diffMinutes} minute${diffMinutes !== 1 ? 's' : ''}`;
+  }
+
+  return `just now`;
   };
 
   return (
@@ -171,9 +214,10 @@ const SideNav = ({
           {!hideSideNav && <h1>Create New Task</h1>}{" "}
           <FaCirclePlus className="text-3xl text-green-600" />
         </button>
-          <ul className="p-4 flex flex-col gap-3">
-            {taskDatas &&
-              taskDatas.map((taskItem,index) => (
+        <ul className="p-4 flex flex-col gap-3">
+          {taskDatas &&
+            taskDatas.map((taskItem, index) => {
+              return (
                 <li key={taskItem.id}>
                   <div
                     className={`flex justify-between hover:bg-gray-200 items-center py-1 px-3 rounded-2xl cursor-pointer ${
@@ -182,30 +226,39 @@ const SideNav = ({
                     onClick={() => handleTaskClick(taskItem)}
                   >
                     {/*#1: The doule click functionality is not working here */}
-                    {!hideSideNav?<input
-                      type="text"
-                      value={taskItem.title}
-                      placeholder="Add title.."
-                      className="m-2 font-semibold w-24 focus:outline-none bg-transparent"
-                      disabled={inputEnable[taskItem.id]}
-                      onChange={(e) =>
-                        updateTaskTitle(taskItem.id, e.target.value)
-                      }
-                      onClick={(e) => e.stopPropagation()}
-                      onDoubleClick={() => {
-                        setInputEnable((prev) => ({
-                          ...prev,
-                          [taskItem.id]: true,
-                        }));
-                      }}
-                      onBlur={() => {
-                        setInputEnable((prev) => ({
-                          ...prev,
-                          [taskItem.id]: false,
-                        }));
-                      }}
-                    />:<h1 className="font-bold text-xl">{index}</h1>}
-
+                    {!hideSideNav ? (
+                      <>
+                      <input
+                        type="text"
+                        value={taskItem.title}
+                        placeholder="Add title.."
+                        className="m-2 font-semibold w-24 focus:outline-none bg-transparent"
+                        disabled={inputEnable[taskItem.id]}
+                        onChange={(e) =>
+                          updateTaskTitle(taskItem.id, e.target.value)
+                        }
+                        onClick={(e) => e.stopPropagation()}
+                        onDoubleClick={() => {
+                          setInputEnable((prev) => ({
+                            ...prev,
+                            [taskItem.id]: true,
+                          }));
+                        }}
+                        onBlur={() => {
+                          setInputEnable((prev) => ({
+                            ...prev,
+                            [taskItem.id]: false,
+                          }));
+                        }}
+                      />
+                      <h1 className="text-xs">
+{getDateDifference(taskItem.created_at.split("T")[0])}
+                    </h1>
+                      </>
+                    ) : (
+                      <h1 className="font-bold text-xl">{index}</h1>
+                    )}
+                    
                     <MdOutlineDeleteOutline
                       className="hover:text-red-400 text-xl"
                       onClick={(e) => {
@@ -216,9 +269,9 @@ const SideNav = ({
                     />
                   </div>
                 </li>
-              ))}
-          </ul>
-      
+              );
+            })}
+        </ul>
       </div>
     </div>
   );
