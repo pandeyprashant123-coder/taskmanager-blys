@@ -134,44 +134,48 @@ const SideNav = ({
 
   const getDateDifference = (dateStr: string) => {
     const inputDate = new Date(dateStr);
-  const now = new Date();
+    const now = new Date();
 
-  const diffMs = now.getTime() - inputDate.getTime();
-  const diffMinutes = Math.floor(diffMs / (1000 * 60));
-  const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
-  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    const diffMs = now.getTime() - inputDate.getTime();
+    const diffMinutes = Math.floor(diffMs / (1000 * 60));
+    const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
 
-  const years = now.getFullYear() - inputDate.getFullYear() -
-    (now.getMonth() < inputDate.getMonth() ||
-    (now.getMonth() === inputDate.getMonth() && now.getDate() < inputDate.getDate())
-      ? 1
-      : 0);
+    const years =
+      now.getFullYear() -
+      inputDate.getFullYear() -
+      (now.getMonth() < inputDate.getMonth() ||
+      (now.getMonth() === inputDate.getMonth() &&
+        now.getDate() < inputDate.getDate())
+        ? 1
+        : 0);
 
-  if (years >= 1) {
-    return `${years} year${years !== 1 ? 's' : ''}`;
-  }
+    if (years >= 1) {
+      return `${years} year${years !== 1 ? "s" : ""}`;
+    }
 
-  const months = (now.getFullYear() - inputDate.getFullYear()) * 12 +
-    (now.getMonth() - inputDate.getMonth()) -
-    (now.getDate() < inputDate.getDate() ? 1 : 0);
+    const months =
+      (now.getFullYear() - inputDate.getFullYear()) * 12 +
+      (now.getMonth() - inputDate.getMonth()) -
+      (now.getDate() < inputDate.getDate() ? 1 : 0);
 
-  if (months >= 1) {
-    return `${months} month${months !== 1 ? 's' : ''}`;
-  }
+    if (months >= 1) {
+      return `${months} month${months !== 1 ? "s" : ""}`;
+    }
 
-  if (diffDays >= 1) {
-    return `${diffDays} day${diffDays !== 1 ? 's' : ''}`;
-  }
+    if (diffDays >= 1) {
+      return `${diffDays} day${diffDays !== 1 ? "s" : ""}`;
+    }
 
-  if (diffHours >= 1) {
-    return `${diffHours} hour${diffHours !== 1 ? 's' : ''}`;
-  }
+    if (diffHours >= 1) {
+      return `${diffHours} hour${diffHours !== 1 ? "s" : ""}`;
+    }
 
-  if (diffMinutes >= 1) {
-    return `${diffMinutes} minute${diffMinutes !== 1 ? 's' : ''}`;
-  }
+    if (diffMinutes >= 1) {
+      return `${diffMinutes} minute${diffMinutes !== 1 ? "s" : ""}`;
+    }
 
-  return `just now`;
+    return `just now`;
   };
 
   return (
@@ -228,37 +232,37 @@ const SideNav = ({
                     {/*#1: The doule click functionality is not working here */}
                     {!hideSideNav ? (
                       <>
-                      <input
-                        type="text"
-                        value={taskItem.title}
-                        placeholder="Add title.."
-                        className="m-2 font-semibold w-24 focus:outline-none bg-transparent"
-                        disabled={inputEnable[taskItem.id]}
-                        onChange={(e) =>
-                          updateTaskTitle(taskItem.id, e.target.value)
-                        }
-                        onClick={(e) => e.stopPropagation()}
-                        onDoubleClick={() => {
-                          setInputEnable((prev) => ({
-                            ...prev,
-                            [taskItem.id]: true,
-                          }));
-                        }}
-                        onBlur={() => {
-                          setInputEnable((prev) => ({
-                            ...prev,
-                            [taskItem.id]: false,
-                          }));
-                        }}
-                      />
-                      <h1 className="text-xs">
-{getDateDifference(taskItem.created_at.split("T")[0])}
-                    </h1>
+                        <input
+                          type="text"
+                          value={taskItem.title}
+                          placeholder="Add title.."
+                          className="m-2 font-semibold w-24 focus:outline-none bg-transparent"
+                          disabled={inputEnable[taskItem.id]}
+                          onChange={(e) =>
+                            updateTaskTitle(taskItem.id, e.target.value)
+                          }
+                          onClick={(e) => e.stopPropagation()}
+                          onDoubleClick={() => {
+                            setInputEnable((prev) => ({
+                              ...prev,
+                              [taskItem.id]: true,
+                            }));
+                          }}
+                          onBlur={() => {
+                            setInputEnable((prev) => ({
+                              ...prev,
+                              [taskItem.id]: false,
+                            }));
+                          }}
+                        />
+                        <h1 className="text-xs">
+                          {getDateDifference(taskItem.created_at.toString())}
+                        </h1>
                       </>
                     ) : (
                       <h1 className="font-bold text-xl">{index}</h1>
                     )}
-                    
+
                     <MdOutlineDeleteOutline
                       className="hover:text-red-400 text-xl"
                       onClick={(e) => {
