@@ -69,7 +69,7 @@ const Canvas = ({
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${window.localStorage.getItem(
-            process.env.AUTH_PREFIX!
+            process.env.NEXT_PUBLIC_AUTH_PREFIX!
           )}`,
         },
       });

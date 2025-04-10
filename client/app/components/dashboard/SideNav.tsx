@@ -58,7 +58,7 @@ const SideNav = ({
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${window.localStorage.getItem(
-              process.env.AUTH_PREFIX!
+              process.env.NEXT_PUBLIC_AUTH_PREFIX!
             )}`,
           },
         }
@@ -97,7 +97,7 @@ const SideNav = ({
       await axios.delete(`/tasks/${taskId}`, {
         headers: {
           Authorization: `Bearer ${window.localStorage.getItem(
-            process.env.AUTH_PREFIX!
+            process.env.NEXT_PUBLIC_AUTH_PREFIX!
           )}`,
         },
       });
@@ -192,7 +192,7 @@ const SideNav = ({
             <FaRegUserCircle className="text-2xl" />
             <h1>{userData?.username}</h1>
             <button
-              className=" flex items-center ml-9 py-1 px-2 rounded-xl text-xs font-light shadow-xs gap-2 hover:bg-green-50 bg-gray-200 text-green-500 hover:cursor-pointer"
+              className=" flex items-center ml-5 py-1 px-2 rounded-xl text-xs font-light shadow-xs gap-2 hover:bg-green-50 bg-gray-200 text-green-500 hover:cursor-pointer"
               onClick={handleLogout}
             >
               Sign Out
@@ -255,7 +255,7 @@ const SideNav = ({
                             }));
                           }}
                         />
-                        <h1 className="text-xs">
+                        <h1 className="text-[.6rem]">
                           {getDateDifference(taskItem.created_at.toString())}
                         </h1>
                       </>

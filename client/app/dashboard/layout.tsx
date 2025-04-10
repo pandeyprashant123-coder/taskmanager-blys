@@ -51,7 +51,7 @@ const Layout = ({
           const res = await axios.get("/tasks", {
             headers: {
               Authorization: `Bearer ${window.localStorage.getItem(
-                process.env.AUTH_PREFIX!
+                process.env.NEXT_PUBLIC_AUTH_PREFIX!
               )}`,
             },
           });

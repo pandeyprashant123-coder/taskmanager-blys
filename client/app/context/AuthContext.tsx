@@ -23,11 +23,11 @@ export function useAuth() {
 
 export function AuthProvider({ children }: { children?: React.ReactNode }) {
   const [token, setToken, clearToken] = useLocalStorage(
-    process.env.AUTH_PREFIX!,
+    process.env.NEXT_PUBLIC_AUTH_PREFIX!,
     null
   );
   const [user, setUser, clearUser] = useLocalStorage(
-    process.env.USER_PREFIX!,
+    process.env.NEXT_PUBLIC_USER_PREFIX!,
     null
   );
 
